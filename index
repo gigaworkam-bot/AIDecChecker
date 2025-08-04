@@ -3,9 +3,9 @@
     <a href="index.html" class="logo">AIDecChecker</a>
     <div class="nav-links">
       <a href="index.html">Головна</a>
-      <a href="about.html">Про сервіс</a>
-      <a href="instruction.html">Інструкція</a>
-      <a href="contact.html">Контакти</a>
+      <a href="FAQ.html">Про сервіс</a>
+      <a href="AIChecker.html">Інструкція</a>
+      <a href="AIAdvisor.html">Контакти</a>
     </div>
   </div>
 </nav>
