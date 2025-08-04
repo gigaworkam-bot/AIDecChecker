@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Перевірка декларацій</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Перевірка декларацій держслужбовців</h1>
+    <p>Вставте посилання на декларацію з сайту <a href="https://public.nazk.gov.ua/" target="_blank">НАЗК</a> і натисніть «Перевірити».</p>
+
+    <input type="url" id="declarationUrl" placeholder="https://public.nazk.gov.ua/documents/..." required>
+    <button onclick="checkDeclaration()">Перевірити</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function checkDeclaration() {
+      const url = document.getElementById('declarationUrl').value.trim();
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = "Зачекайте...";
+
+      if (!url || !url.startsWith("http")) {
+        resultDiv.textContent = "Некоректне посилання.";
+        return;
+      }
+
+      try {
+        const response = await fetch("https://YOUR-N8N-DOMAIN/webhook/declaration-checker", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url })
+        });
+
+        if (!response.ok) throw new Error("Помилка");
+
+        const data = await response.json();
+        resultDiv.textContent = data.result || "Результат порожній.";
+      } catch (err) {
+        resultDiv.textContent = "Сталася помилка.";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
